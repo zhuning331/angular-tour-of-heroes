@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +17,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [ // 模組也可透過引入其他模組來使用
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [], // 定義這個模組會依賴注入的服務
   bootstrap: [AppComponent] // 定義根元件，只有根模組才會有
