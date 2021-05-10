@@ -1,10 +1,7 @@
 <h2>My Heroes</h2>
 <div>
-  <label>Hero name:
-    <input [(ngModel)]="newHero.name">
-  </label>
-  <button (click)="addHero()" [disabled]="!newHero.name">
-    add
+  <button routerLink="/new">
+    Add Hero
   </button>
 </div>
 <ul class="heroes">

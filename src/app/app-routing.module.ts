@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'heroes', component: HeroesComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'detail/:id', component: HeroDetailComponent }
+  { path: 'detail/:id', component: HeroDetailComponent },
+  { path: 'new', component: HeroDetailComponent }
 ]; // 定義 URL 給瀏覽器查詢
 
 @NgModule({

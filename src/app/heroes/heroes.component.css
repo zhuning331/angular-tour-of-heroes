@@ -71,9 +71,3 @@ button.delete {
   background-color: gray !important;
   color: white;
 }
-
-button:disabled {
-  background-color: #eee;
-  color: #ccc;
-  cursor: auto;
-}

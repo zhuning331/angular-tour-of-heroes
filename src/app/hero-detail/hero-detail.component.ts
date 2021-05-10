@@ -25,8 +25,17 @@ export class HeroDetailComponent implements OnInit {
 
   findHero(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.heroService.findHero(id)
-      .subscribe(hero => this.hero = hero);
+    if (id) {
+      this.heroService.findHero(id)
+        .subscribe(hero => this.hero = hero);
+    } else {
+      this.hero = {id: null, name: ''};
+    }
+  }
+
+  addHero(): void {
+    this.heroService.addHero(this.hero)
+      .subscribe(() => this.goBack());
   }
 
   goBack(): void {
@@ -34,7 +43,12 @@ export class HeroDetailComponent implements OnInit {
   }
 
   save(): void {
-    this.heroService.updateHero(this.hero)
-      .subscribe(() => this.goBack())
+    if (this.hero.id) {
+      this.heroService.updateHero(this.hero)
+        .subscribe(() => this.goBack())
+    } else {
+      this.heroService.addHero(this.hero)
+        .subscribe(() => this.goBack())
+    }
   }
 }
