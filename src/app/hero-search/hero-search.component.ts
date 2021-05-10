@@ -4,7 +4,7 @@ import {
    debounceTime, distinctUntilChanged, map, switchMap
  } from 'rxjs/operators';
 
-import { Hero } from '../hero';
+import { IHero } from '../hero';
 import { HeroService } from '../hero.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { HeroService } from '../hero.service';
   styleUrls: [ './hero-search.component.css' ]
 })
 export class HeroSearchComponent implements OnInit {
-  heroes: Hero[];
+  heroes: IHero[];
 
   constructor(
     private heroService: HeroService,

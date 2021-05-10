@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Hero } from './../hero';
+import { IHero, Hero } from './../hero';
 import { HeroService } from '../hero.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./hero-detail.component.css']
 })
 export class HeroDetailComponent implements OnInit {
-  hero: Hero;
+  hero: IHero;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,7 +29,7 @@ export class HeroDetailComponent implements OnInit {
       this.heroService.findHero(id)
         .subscribe(hero => this.hero = hero);
     } else {
-      this.hero = {id: null, name: ''};
+      this.hero = new Hero();
     }
   }
 
