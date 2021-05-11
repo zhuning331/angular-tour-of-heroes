@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { IHero, Hero } from './../hero';
 import { HeroService } from '../hero.service';
@@ -11,7 +12,11 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./hero-detail.component.css']
 })
 export class HeroDetailComponent implements OnInit {
-  hero: IHero;
+  heroForm = new FormGroup({
+    id: new FormControl(),
+    name: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+    email: new FormControl('', [Validators.email])
+  });
 
   constructor(
     private route: ActivatedRoute,
@@ -27,14 +32,12 @@ export class HeroDetailComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     if (id) {
       this.heroService.findHero(id)
-        .subscribe(hero => this.hero = hero);
-    } else {
-      this.hero = new Hero();
+        .subscribe(hero => this.heroForm.patchValue(hero));
     }
   }
 
   addHero(): void {
-    this.heroService.addHero(this.hero)
+    this.heroService.addHero(this.heroForm.value)
       .subscribe(() => this.goBack());
   }
 
@@ -43,11 +46,11 @@ export class HeroDetailComponent implements OnInit {
   }
 
   save(): void {
-    if (this.hero.id) {
-      this.heroService.updateHero(this.hero)
+    if (this.heroForm.value.id) {
+      this.heroService.updateHero(this.heroForm.value)
         .subscribe(() => this.goBack())
     } else {
-      this.heroService.addHero(this.hero)
+      this.heroService.addHero(this.heroForm.value)
         .subscribe(() => this.goBack())
     }
   }

@@ -1,7 +1,8 @@
-<div *ngIf="hero">
-  <h2>{{hero.name | uppercase}} Details</h2>
-  <div *ngIf="hero.id"><span>id: </span>{{hero.id}}</div>
-  <form #heroForm="ngForm">
+<div *ngIf="heroForm.value">
+  <h2>{{heroForm.value.name | uppercase}} Details</h2>
+  <div *ngIf="heroForm.value.id"><span>id: </span>{{heroForm.value.id}}</div>
+  <!-- Template-driven Form -->
+  <!-- <form #heroForm="ngForm">
     <div>
       <label>name:
         <input [(ngModel)]="hero.name" name="name" placeholder="name" required maxlength="10" #name="ngModel"/>
@@ -22,9 +23,32 @@
         E-mail format error.
       </small>
     </div>
+  </form> -->
+  <!-- Reactive Form -->
+  <form [formGroup]="heroForm">
+    <div>
+      <label>name:
+        <input formControlName="name" placeholder="name" maxlength="10"/>
+      </label>
+    </div>
+    <div *ngIf="heroForm.get('name').invalid && (heroForm.get('name').dirty || heroForm.get('name').touched)">
+      <small *ngIf="heroForm.get('name').errors.required">
+        The hero name is required.
+      </small>
+    </div>
+    <div>
+      <label>E-mail:
+        <input formControlName="email" placeholder="E-mail"/>
+      </label>
+    </div>
+    <div *ngIf="heroForm.get('email').invalid && (heroForm.get('email').dirty || heroForm.get('email').touched)">
+      <small *ngIf="heroForm.get('email').errors.email">
+        E-mail format error.
+      </small>
+    </div>
   </form>
   <div>
     <button (click)="goBack()">go back</button>
-    <button (click)="save()" [disabled]="heroForm.form.invalid">save</button>
+    <button (click)="save()" [disabled]="heroForm.invalid">save</button>
   </div>
 </div>
