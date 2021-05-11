@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import { IHero, Hero } from './../hero';
 import { HeroService } from '../hero.service';
@@ -12,16 +12,17 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./hero-detail.component.css']
 })
 export class HeroDetailComponent implements OnInit {
-  heroForm = new FormGroup({
-    id: new FormControl(),
-    name: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-    email: new FormControl('', [Validators.email])
+  heroForm = this.fb.group({
+    id: [],
+    name: ['', [Validators.required, Validators.maxLength(10)]],
+    email: ['', [Validators.email]]
   });
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private heroService: HeroService
+    private heroService: HeroService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
