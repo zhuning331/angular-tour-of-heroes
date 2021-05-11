@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
 
 import { IHero, Hero } from './../hero';
 import { HeroService } from '../hero.service';
@@ -14,7 +14,7 @@ import { HeroService } from '../hero.service';
 export class HeroDetailComponent implements OnInit {
   heroForm = this.fb.group({
     id: [],
-    name: ['', [Validators.required, Validators.maxLength(10)]],
+    name: ['', [Validators.required, Validators.maxLength(10), this.forbiddenNameValidator(/kevin/i)]],
     email: ['', [Validators.email]]
   });
 
@@ -53,6 +53,13 @@ export class HeroDetailComponent implements OnInit {
     } else {
       this.heroService.addHero(this.heroForm.value)
         .subscribe(() => this.goBack())
+    }
+  }
+
+  forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+      const forbidden = nameRe.test(control.value);
+      return forbidden ? {forbiddenName: {value: control.value}} : null;
     }
   }
 }

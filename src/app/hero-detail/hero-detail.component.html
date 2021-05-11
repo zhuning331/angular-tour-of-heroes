@@ -35,6 +35,9 @@
       <small *ngIf="heroForm.get('name').errors.required">
         The hero name is required.
       </small>
+      <small *ngIf="heroForm.get('name').errors.forbiddenName">
+        {{ heroForm.get('name').errors.forbiddenName.value }} is forbidden.
+      </small>
     </div>
     <div>
       <label>E-mail:
