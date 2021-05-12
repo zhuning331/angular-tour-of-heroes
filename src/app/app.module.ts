@@ -28,10 +28,10 @@ export function createTranslateLoader(http: HttpClient) {
     ReactiveFormsModule,
     HttpClientModule,
     TranslateModule.forRoot({
-      defaultLanguage: 'en',
+      defaultLanguage: 'en', // 設定預設語言為英文
       loader: {
         provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
+        useFactory: (createTranslateLoader), // 使用 createTranslateLoader 做為語言檔讀取器
         deps: [HttpClient]
       }
     })
