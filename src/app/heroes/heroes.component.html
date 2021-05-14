@@ -4,8 +4,8 @@
     Add Hero
   </button>
 </div>
-<ul class="heroes">
-  <li *ngFor="let hero of heroes">
+<ul class="heroes" [@flyIn]="heroes.length">
+  <li *ngFor="let hero of heroes" [@flyOut]="'in'">
     <a [routerLink]="'/detail/' + hero.id">
       <span class="badge">{{hero.id}}</span> {{hero.name}}
     </a>
