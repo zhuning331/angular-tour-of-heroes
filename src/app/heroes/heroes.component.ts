@@ -22,7 +22,7 @@ import { HeroService } from '../hero.service';
     trigger('flyOut', [
       state('in', style({ transform: 'translateX(0)' })),
       transition(':leave', [
-        animate(200, style({ transform: 'translateX(100%)' }))
+        animate(200, style({ transform: 'translateX(100%)', opacity: 0 }))
       ])
     ])
   ]
